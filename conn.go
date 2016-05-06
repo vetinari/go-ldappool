@@ -71,10 +71,6 @@ func (p *PoolConn) Modify(modifyRequest *ldap.ModifyRequest) error {
 	return p.Conn.Modify(modifyRequest)
 }
 
-func (p *PoolConn) ModifyDN(modifyDNRequest *ldap.ModifyDNRequest) error {
-	return p.Conn.ModifyDN(modifyDNRequest)
-}
-
 func (p *PoolConn) Compare(dn, attribute, value string) (bool, error) {
 	return p.Conn.Compare(dn, attribute, value)
 }
