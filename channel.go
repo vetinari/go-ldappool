@@ -64,8 +64,10 @@ func NewChannelPool(initialCap, maxCap int, name string, factory PoolFactory, cl
 	return c, nil
 }
 
-func (c channelPool) AliveChecks(on bool) {
+func (c *channelPool) AliveChecks(on bool) {
+	c.mu.Lock()
 	c.aliveChecks = on
+	c.mu.Unlock()
 }
 
 func (c *channelPool) getConns() chan ldap.Client {
