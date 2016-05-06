@@ -7,6 +7,6 @@ lots of code is taken from there and rewritten to match the `ldap.Client` interf
 Notes
 ------
 
-This is only suitable for connections which do not use `Bind()` after the initial connection setup.
-
+This is only suitable for connections which do not use `Bind()` after the initial connection setup, i.e.
+just use one user to connect to the LDAP service and do not bind again to check passwords.
 

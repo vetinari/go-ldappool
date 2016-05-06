@@ -2,9 +2,10 @@ package ldappool
 
 import (
 	"errors"
-	"gopkg.in/ldap.v2"
 	"log"
 	"sync"
+
+	"gopkg.in/ldap.v2"
 )
 
 // channelPool implements the Pool interface based on buffered channels.
@@ -91,11 +92,12 @@ func (c *channelPool) Get() (*PoolConn, error) {
 			return nil, ErrClosed
 		}
 		// log.Printf("existing conn: %v", conn)
-		if c.aliveChecks && isAlive(conn) {
+		if !c.aliveChecks || isAlive(conn) {
 			return c.wrapConn(conn, c.closeAt), nil
 		}
 
-		log.Printf("connection dead: %v", conn)
+		// log.Printf("connection dead: %v", conn)
+		log.Printf("connection dead\n")
 		conn.Close()
 		return c.NewConn()
 	default:
