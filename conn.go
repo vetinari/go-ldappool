@@ -85,3 +85,7 @@ func (p *PoolConn) Search(searchRequest *ldap.SearchRequest) (*ldap.SearchResult
 func (p *PoolConn) SearchWithPaging(searchRequest *ldap.SearchRequest, pagingSize uint32) (*ldap.SearchResult, error) {
 	return p.Conn.SearchWithPaging(searchRequest, pagingSize)
 }
+
+func (p *PoolConn) ModifyDN(modifyDNRequest *ldap.ModifyDNRequest) error {
+	return p.Conn.ModifyDN(modifyDNRequest)
+}
