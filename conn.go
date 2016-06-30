@@ -3,6 +3,7 @@ package ldappool
 import (
 	"crypto/tls"
 	"log"
+	"time"
 
 	"gopkg.in/ldap.v2"
 )
@@ -57,6 +58,10 @@ func (p *PoolConn) autoClose(err error) {
 			return
 		}
 	}
+}
+
+func (p *PoolConn) SetTimeout(t time.Duration) {
+	p.Conn.SetTimeout(t)
 }
 
 func (p *PoolConn) Add(addRequest *ldap.AddRequest) error {
