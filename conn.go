@@ -28,7 +28,7 @@ func (p *PoolConn) StartTLS(config *tls.Config) error {
 // Close() puts the given connects back to the pool instead of closing it.
 func (p *PoolConn) Close() {
 	if p.unusable {
-		log.Printf("Closing unusable connection %v", p.Conn)
+		log.Printf("Closing unusable connection")
 		if p.Conn != nil {
 			p.Conn.Close()
 		}

@@ -53,7 +53,6 @@ func NewChannelPool(initialCap, maxCap int, name string, factory PoolFactory, cl
 	// just close the pool error out.
 	for i := 0; i < initialCap; i++ {
 		conn, err := factory(c.name)
-		log.Printf("init connection: %v", conn)
 		if err != nil {
 			c.Close()
 			return nil, errors.New("factory is not able to fill the pool: " + err.Error())
@@ -93,12 +92,10 @@ func (c *channelPool) Get() (*PoolConn, error) {
 		if conn == nil {
 			return nil, ErrClosed
 		}
-		// log.Printf("existing conn: %v", conn)
 		if !c.aliveChecks || isAlive(conn) {
 			return c.wrapConn(conn, c.closeAt), nil
 		}
 
-		// log.Printf("connection dead: %v", conn)
 		log.Printf("connection dead\n")
 		conn.Close()
 		return c.NewConn()
@@ -114,7 +111,6 @@ func isAlive(conn ldap.Client) bool {
 
 func (c *channelPool) NewConn() (*PoolConn, error) {
 	conn, err := c.factory(c.name)
-	log.Printf("new connection: %v", conn)
 	if err != nil {
 		return nil, err
 	}
